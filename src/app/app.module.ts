@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule }   from '@angular/forms';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { HttpModule } from '@angular/http';
 
 
@@ -16,7 +18,9 @@ import { EntryService } from './entry.service';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     HttpModule,
+    PaginationModule.forRoot(),
     TypeaheadModule.forRoot()
   ],
   providers: [EntryService],
