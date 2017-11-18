@@ -29,7 +29,9 @@ export class SearchEntriesComponent implements OnInit {
     event.preventDefault();
     console.log(this.selected);
     if (this.selected !== '') {
-      this.filteredEntries = this.entries.filter(e => e.title === this.selected);
+      this.filteredEntries = this.entries.filter(e => {
+        return e.title.includes(this.selected) || e.body.includes(this.selected);
+      });
     } else {
       this.filteredEntries = this.entries;
     }
