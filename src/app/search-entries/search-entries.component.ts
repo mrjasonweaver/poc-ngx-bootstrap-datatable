@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EntryService } from '../entry.service'
 
 @Component({
   selector: 'app-search-entries',
@@ -6,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./search-entries.component.scss']
 })
 export class SearchEntriesComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
+  entries: Array<any>;
+  constructor(private entryService: EntryService) { }
+  
+    async ngOnInit() {
+      this.entries = await this.entryService.getEntries();
+      console.log(this.entries)
+    }
 
 }

@@ -1,3 +1,19 @@
-<p>
-  search-entries works!
-</p>
+<div>
+    <h2>Entries</h2>
+    <table class="table">
+    <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Title</th>
+          <th scope="col">Body</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let entry of entries">
+          <td scope="row">{{ entry.id }}</td>
+          <td>{{ entry.title }}</td>
+          <td>{{ entry.body }}</td>
+        </tr>
+      </tbody>
+    </table>
+</div>
