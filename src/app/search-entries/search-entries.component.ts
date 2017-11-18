@@ -14,7 +14,7 @@ export class SearchEntriesComponent implements OnInit {
   filteredEntries: any[] = [];
   totalItems: number;
   currentPage: number = 1;
-  start: any;
+  start: number;
   end: number;
 
   constructor(private entryService: EntryService) { }
@@ -23,13 +23,11 @@ export class SearchEntriesComponent implements OnInit {
     this.entries = await this.entryService.getEntries();
     this.totalItems = this.entries.length;
     this.filteredEntries = this.entries.filter(e => e.id < 11);
-    // console.log(this.filteredEntries);
   }
 
   pageChanged(event: any) {
-    console.log(event);
     this.start = parseInt((event.page - 1) + "0");
     this.end = (event.page * 10) + 1;
-    this.filteredEntries = this.entries.filter(e => e.id < this.end && e.id > this.start);
+    this.filteredEntries = this.entries.filter(e => e.id > this.start && e.id < this.end);
   }
 }
