@@ -4,11 +4,13 @@ import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 
 
 import { AppComponent } from './app.component';
+import { SearchEntriesComponent } from './search-entries/search-entries.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SearchEntriesComponent
   ],
   imports: [
     BrowserModule,
