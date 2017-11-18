@@ -25,6 +25,17 @@ export class SearchEntriesComponent implements OnInit {
     this.filteredEntries = this.entries.filter(e => e.id < 11);
   }
 
+  searchEntries(event: any) {
+    event.preventDefault();
+    console.log(this.selected);
+    if (this.selected !== '') {
+      this.filteredEntries = this.entries.filter(e => e.title === this.selected);
+    } else {
+      this.filteredEntries = this.entries;
+    }
+    this.totalItems = this.filteredEntries.length;
+  }
+
   pageChanged(event: any) {
     this.start = parseInt((event.page - 1) + "0");
     this.end = (event.page * 10) + 1;

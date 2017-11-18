@@ -1,14 +1,15 @@
 <div class="row mt-4">
   <div class="col">
-    <form #searchForm="ngForm">
+    <form #searchForm="ngForm" (submit)="searchEntries($event)">
       <div class="form-group form-inline">
         <input type="search" class="form-control mr-2" id="search" aria-describedby="searchEntries" placeholder="Search entries" [(ngModel)]="selected" name="search">
       </div>
     </form>
   </div>
   <div class="col">
-      <pagination class="float-lg-right" [totalItems]="totalItems" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"></pagination>
-    </div>
+    <pagination *ngIf="filteredEntries.length" class="float-lg-right" [totalItems]="totalItems" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"></pagination>
+    <p class="float-lg-right bg-warning p-2" *ngIf="!filteredEntries.length">No matches for your search</p>
+  </div>
 </div>
 <table class="table">
   <thead>
