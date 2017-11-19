@@ -3,12 +3,14 @@
     <form #searchForm="ngForm" (submit)="searchEntries($event)">
       <div class="form-group form-inline">
         <input type="search" class="form-control mr-2" id="search" aria-describedby="searchEntries" placeholder="Search entries" [(ngModel)]="selected" name="search">
+        <span class="btn btn-outline-primary" (click)="clearSearched()" *ngIf="isSearched(selected)"><span>x <span class="">|</span> </span> {{selected}}</span>
       </div>
     </form>
   </div>
   <div class="col">
-    <pagination *ngIf="filteredEntries.length" class="float-lg-right" [totalItems]="totalItems" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"></pagination>
+    <pagination *ngIf="!isSearched(selected)" class="float-lg-right" [totalItems]="totalItems" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"></pagination>
     <p class="float-lg-right bg-warning p-2" *ngIf="!filteredEntries.length">No matches for your search</p>
+    <p class="float-lg-right bg-success p-2 text-white" *ngIf="showEntryCount(selected)">{{ filteredEntries.length }} found</p>
   </div>
 </div>
 <table class="table">

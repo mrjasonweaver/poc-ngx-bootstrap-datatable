@@ -14,33 +14,61 @@ export class SearchEntriesComponent implements OnInit {
   filteredEntries: any[] = [];
   totalItems: number;
   currentPage: number = 1;
-  start: number;
+  start: any;
   end: number;
+  submitted: boolean = false;
 
   constructor(private entryService: EntryService) { }
   
   async ngOnInit() {
     this.entries = await this.entryService.getEntries();
+    this.filteredEntries = this.entries.filter((e, i) => i < 10);
     this.totalItems = this.entries.length;
-    this.filteredEntries = this.entries.filter(e => e.id < 11);
+    console.log(this.selected);
+  }
+
+  filterEntries() {
+    this.filteredEntries = this.entries.filter(e => {
+      return e.title.includes(this.selected) || e.body.includes(this.selected);
+    });
+    this.totalItems = this.filteredEntries.length;
   }
 
   searchEntries(event: any) {
     event.preventDefault();
-    console.log(this.selected);
-    if (this.selected !== '') {
-      this.filteredEntries = this.entries.filter(e => {
-        return e.title.includes(this.selected) || e.body.includes(this.selected);
-      });
+    if (this.selected !== '' || this.selected !== undefined) {
+      this.filterEntries();
     } else {
       this.filteredEntries = this.entries;
     }
-    this.totalItems = this.filteredEntries.length;
+    this.submitted = true;
   }
 
   pageChanged(event: any) {
     this.start = parseInt((event.page - 1) + "0");
-    this.end = (event.page * 10) + 1;
-    this.filteredEntries = this.entries.filter(e => e.id > this.start && e.id < this.end);
+    this.end = event.page * 10;
+    this.filteredEntries = this.entries.filter((e, i) => i > (this.start - 1) && i < this.end);
+  }
+
+  clearSearched() {
+    this.selected = '';
+    this.filteredEntries = this.entries.filter((e, i) => i < 10);
+    this.submitted = false;
+  }
+
+  isSearched(searched) {
+    if (searched === undefined || searched === '') {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  showEntryCount(searched) {
+    if (this.filteredEntries.length && searched !== undefined && searched !== '' && this.submitted === true) {
+      return true;
+    } else {
+      return false;
+    }   
   }
 }
